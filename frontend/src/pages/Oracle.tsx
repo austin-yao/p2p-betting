@@ -157,41 +157,9 @@ const Oracle = () => {
         );
     };
 
-    // return (
-    //     <Box>
-    //         <Button onClick={requestProposal} disabled={proposalLoading || !account}>Request Proposal</Button>
-    //         {proposalLoading && <Text>Loading...</Text>}
-    //         {proposalError && <Text style={{ color: "red" }}>{proposalError}</Text>}
-    //         {proposal && (
-    //             <Box>
-    //                 <h3>Proposal Details</h3>
-    //                 <pre>{JSON.stringify(proposal, null, 2)}</pre>
-    //             </Box>
-    //         )}
-    //         {userProposals.map((proposal) =>
-    //             <Box key={proposal.id}>
-    //                 {expandedProposal && expandedProposal.id === proposal.id ? (
-    //                     <ProposalCard proposal={proposal} onResponseChange={(response) => {
-    //                         setUserProposals((prevProposals) =>
-    //                             prevProposals.map((p) =>
-    //                                 p.id === proposal.id ? { ...p, response } : p
-    //                             )
-    //                         );
-    //                     }} onClose={() => setExpandedProposal(null)} />
-    //                 ) : (
-    //                     <Text onClick={() => setExpandedProposal(proposal)}>
-    //                         Question: {proposal.question}
-    //                     </Text>
-    //                 )}
-    //             </Box>
-    //         )}
-    //         {userProposalsError && <Text style={{ color: "red" }}>{userProposalsError}</Text>}
-    //     </Box>
-    // )
-
     return (
         <div>
-            <div className="p-6 bg-white dark:bg-slate-800 rounded-lg shadow-md max-w-3xl mx-auto space-y-6">
+            <div className="p-6 bg-white dark:bg-slate-800 rounded-lg shadow-md max-w-3xl mx-auto space-y-6 opacity-80">
                 {/* Request Proposal Button */}
                 <button
                     onClick={requestProposal}

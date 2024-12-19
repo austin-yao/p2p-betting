@@ -109,7 +109,7 @@ const CreateBet = () => {
 
     return (
         <div>
-            <div className="max-w-2xl mx-auto p-6 bg-gray-50 dark:bg-slate-800 rounded-lg shadow-md">
+            <div className="max-w-2xl mx-auto p-6 bg-gray-50 dark:bg-slate-800 rounded-lg shadow-md opacity-80">
                 <h1 className="text-2xl font-bold text-slate-800 dark:text-sky-100 mb-6">Create a Bet:</h1>
                 <Form.Root onSubmit={createBet} className="space-y-6">
                     {/* Question Field */}
