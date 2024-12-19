@@ -3,10 +3,11 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "concurrently \"npm run server\" \"npm run indexer\"",
-    "server": "npx ts-node server.ts",
-    "indexer": "npx ts-node indexer.ts"
+    "build": "tsc",
+    "start": "npm run build && concurrently \"node dist/server.js\" \"node dist/indexer.js\"",
+    "server": "node dist/server.js",
+    "indexer": "node dist/indexer.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",

@@ -3,3 +3,4 @@
 contracts/build
 contracts/storage
 **/.env
+api/dist
