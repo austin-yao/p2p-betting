@@ -1,0 +1,36 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model Bet {
+  id Int @id @default(autoincrement())
+  betId String @unique
+  creator String?
+  acceptor String?
+  question String?
+  for_amount Int?
+  against_amount Int?
+  agreed_by_both Boolean @default(false)
+  game_start_time String?
+  game_end_time String?
+  status Int @default(4)
+  create_time String?
+  sent_to_oracle Boolean @default(false)
+}
+
+model Cursor {
+  id String @id
+  eventSeq String
+  txDigest String
+}

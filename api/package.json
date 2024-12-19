@@ -1,0 +1,30 @@
+{
+  "name": "api",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "concurrently \"npm run server\" \"npm run indexer\"",
+    "server": "npx ts-node server.ts",
+    "indexer": "npx ts-node indexer.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.10.1",
+    "concurrently": "^9.1.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.2"
+  },
+  "dependencies": {
+    "@mysten/sui": "^1.16.0",
+    "@prisma/client": "^6.0.1",
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "prisma": "^6.0.1"
+  }
+}
