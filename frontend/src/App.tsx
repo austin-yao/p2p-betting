@@ -10,7 +10,7 @@ import Oracle from "./pages/Oracle";
 
 function App() {
   return (
-    <div className="bg-gradient-to-r from-blue-50 via-zinc-100 to-blue-100 dark:from-slate-900 dark:via-sky-900 dark:to-slate-900">
+    <div className="bg-gradient-to-r from-blue-50 via-zinc-100 to-blue-100 dark:from-slate-800 dark:via-sky-900 dark:to-slate-900">
       <div className="container mx-auto px-8 py-6 min-h-screen">
         <Router>
           <div>
