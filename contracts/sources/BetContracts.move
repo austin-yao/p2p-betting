@@ -64,7 +64,7 @@ module game::betting {
     public struct Proposal has store, key {
         id: UID,
         proposer: address,
-        oracleId: ID,
+        oracle_id: ID,
         question: String,
         // 0 or  1
         response: bool,
@@ -73,7 +73,7 @@ module game::betting {
 
     public struct Query has store, key {
         id: UID,
-        betId: ID,
+        bet_id: ID,
         question: String, 
         creator_address: address,
         consenting_address: address,
@@ -156,14 +156,15 @@ module game::betting {
         transfer::public_transfer(coin, game_data.owner);
     }
 
-    // AUSTIN FUNCTIONS
     /*
-        called by the application to send a query up for betting
+        Oracle Functions
     */
-    fun receiveQuery(game_data: &mut GameData, bet: &Bet, ctx: &mut TxContext) {
+
+    // Called internally by contract to send a new bet to the oracle.
+    fun receive_query(game_data: &mut GameData, bet: &Bet, ctx: &mut TxContext) {
         let mut new_query = Query {
             id: object::new(ctx),
-            betId: bet.bet_id,
+            bet_id: bet.bet_id,
             question: bet.question,
             creator_address: bet.creator_address,
             consenting_address: bet.consenting_address,
@@ -191,8 +192,8 @@ module game::betting {
         game_data.all_queries.add(temp, new_query);
     }
     
-    // Make sure you cannot call from another module
-    entry fun requestValidate(game_data: &GameData, r: &Random, ctx: &mut TxContext): (ID, ID) {
+    // Called by a user to request a proposal to validate.
+    entry fun request_validate(game_data: &GameData, r: &Random, ctx: &mut TxContext): (ID, ID) {
         let mut i = 1;
         // You get five turns to try to find a suitable query.
         let mut turn = 0;
@@ -227,19 +228,20 @@ module game::betting {
         proposal = Proposal {
             id: object::new(ctx),
             proposer: sender,
-            oracleId: query.betId,
+            oracle_id: query.bet_id,
             question: query.question,
             response: false,
             query_id: *query_id
         };
         let prop_id = proposal.id.to_inner();
-        let bet_id = proposal.oracleId;
+        let bet_id = proposal.oracle_id;
         transfer::public_transfer(proposal, sender);
 
         (prop_id, bet_id)
     }
 
-    public fun receiveValidate(game_data: &mut GameData, bet: &mut Bet, mut prop: Proposal, response: bool, coin: Coin<SUI>, ctx: &mut TxContext) {
+    // Called by the user to submit a proposal
+    public fun receive_validate(game_data: &mut GameData, bet: &mut Bet, mut prop: Proposal, response: bool, coin: Coin<SUI>, ctx: &mut TxContext) {
         let sender = tx_context::sender(ctx);
         let prop_query_id = prop.query_id;
 
@@ -247,7 +249,7 @@ module game::betting {
         assert!(bet.status == 1, EBetNoLongerActive);
         assert!(bet.agreed_by_both, EBetNotYetInProgress);
         assert!(game_data.all_queries.contains(prop.query_id), EQueryNotFound);
-        assert!(prop.oracleId == bet.bet_id, EInvalidProposalForBet);
+        assert!(prop.oracle_id == bet.bet_id, EInvalidProposalForBet);
 
         let query = game_data.all_queries.borrow_mut(prop.query_id);
 
@@ -265,7 +267,7 @@ module game::betting {
 
             // deconstruct the query
             let actual_query = game_data.all_queries.remove(prop_query_id);
-            let Query {id, betId: _, question: _, creator_address: _, consenting_address: _, validators, mut balance, index} = move actual_query;
+            let Query {id, bet_id: _, question: _, creator_address: _, consenting_address: _, validators, mut balance, index} = move actual_query;
             let (_vals, mut props) : (vector<address>, vector<Proposal>) = validators.into_keys_values();
             let mut i = 0;
             while (i < VAL_SIZE) {
@@ -304,7 +306,7 @@ module game::betting {
                 i = i + 1;
 
                 // delete the proposal
-                let Proposal {id, proposer: _, oracleId: _, question: _, response: _, query_id: _} = proposal;
+                let Proposal {id, proposer: _, oracle_id: _, question: _, response: _, query_id: _} = proposal;
                 id.delete();
             };
             
@@ -381,7 +383,7 @@ module game::betting {
         return bet_id
     }
     
-    // delete a bet if it;s not agreed upon
+    // delete a bet if it is not agreed upon
     public fun delete_bet(mut bet: Bet, ctx: &mut TxContext) {
         assert!(bet.creator_address == ctx.sender(), ENotBetOwner);
         assert!(!bet.agreed_by_both, EBetAlreadyInProgress);
@@ -419,7 +421,7 @@ module game::betting {
         object::delete(id);
     }
 
-    //second player in instantiated bet agrees to it here
+    // second player in instantiated bet agrees to it here
     public fun agree_to_bet(bet: &mut Bet, coin: Coin<SUI>, clock: &Clock, ctx: &mut TxContext) {
         let current_time = clock.timestamp_ms();
 
@@ -480,7 +482,7 @@ module game::betting {
         object::delete(id);
     }
 
-    //after game end time, send bet to oracle for winner verification
+    // after game end time, send bet to oracle for winner verification
     public fun send_bet_to_oracle(game_data: &mut GameData, bet: &mut Bet, clock: &Clock, ctx: &mut TxContext) {
         assert!(bet.status == 1, EBetNoLongerActive);
         assert!(bet.agreed_by_both, EBetNotYetInProgress);
@@ -489,7 +491,7 @@ module game::betting {
         assert!(current_time > bet.game_end_time, EBetNotYetInProgress);
 
         bet.sent_to_oracle = true;
-        receiveQuery(game_data, bet, ctx);
+        receive_query(game_data, bet, ctx);
         event::emit(BetSentToOracle {
             bet_id: bet.bet_id
         });
@@ -547,8 +549,8 @@ module game::betting {
         prop.proposer
     }
 
-    public fun oracleId(prop: &Proposal): ID {
-        prop.oracleId
+    public fun oracle_id(prop: &Proposal): ID {
+        prop.oracle_id
     }
 
     public fun p_question(prop: &Proposal): String {
