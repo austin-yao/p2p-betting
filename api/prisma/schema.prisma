@@ -27,6 +27,7 @@ model Bet {
   status Int @default(4)
   create_time String?
   sent_to_oracle Boolean @default(false)
+  winner String?
 }
 
 model Cursor {

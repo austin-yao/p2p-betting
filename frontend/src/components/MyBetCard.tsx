@@ -215,6 +215,16 @@ const ExpandedMyBetCard: React.FC<ExpandedMyBetCardProps> = ({ bet, onClose, add
                                         {new Date(Number(bet.game_end_time)).toLocaleString()}
                                     </td>
                                 </tr>
+                                {bet.status == 3 ? (
+                                    <tr>
+                                        <td className="border border-slate-300 dark:border-slate-700 px-4 py-2 text-slate-700 dark:text-slate-300">
+                                            Result
+                                        </td>
+                                        <td className="border border-slate-300 dark:border-slate-700 px-4 py-2 text-slate-700 dark:text-slate-300">
+                                            {bet.winner == address ? "Won" : "Lost"}
+                                        </td>
+                                    </tr>
+                                ) : <></>}
                             </tbody>
                         </table>
                     </div>

@@ -76,6 +76,7 @@ export const handleBetEvent = async (events: SuiEvent[], type: string) => {
         } else if (event.type.endsWith("::BetPaidOut")) {
             const data = event.parsedJson as BetPaidOut;
             updates[data.bet_id].status = 3;
+            updates[data.bet_id].winner = data.winner;
         } else if (event.type.endsWith("::BetSentToOracle")) {
             const data = event.parsedJson as BetSentToOracle;
             updates[data.bet_id].sent_to_oracle = true;
