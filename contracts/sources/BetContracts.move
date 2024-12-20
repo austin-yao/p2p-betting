@@ -25,6 +25,7 @@ module game::betting {
     const EEndTimeBeforeStartTime: u64 = 23;
 
     const VAL_SIZE: u64 = 3;
+    const VAL_AMOUNT: u64 = 1000000;
 
     public struct InitializationCap has key, store {
         id: UID,
@@ -258,7 +259,7 @@ module game::betting {
         prop.response = response;
         query.validators.insert(sender, prop);
 
-        assert!(coin.value() == 10, EWrongFundAmount);
+        assert!(coin.value() == VAL_AMOUNT, EWrongFundAmount);
         let amount_staked = coin::into_balance(coin);
         balance::join(&mut query.balance, amount_staked);
         
@@ -291,7 +292,7 @@ module game::betting {
             // total is 110 sui
             // winners distribute it evenly. 
             // Note: with three validators, it will always work out, but otherwise, floats will not work.
-            let amount_earned =  10 + (wrong_answers * 10) / right_answers;
+            let amount_earned =  VAL_AMOUNT + (wrong_answers * VAL_AMOUNT) / right_answers;
 
             i = 0;
             while (i < VAL_SIZE) {

@@ -55,7 +55,6 @@ const ExpandedMyBetCard: React.FC<ExpandedMyBetCardProps> = ({ bet, onClose, add
             },
             {
                 onSuccess: async (result) => {
-                    console.log("Successfully deleted bet");
                     const { effects } = await suiClient.waitForTransaction({
                         digest: result.digest,
                         options: {
@@ -65,8 +64,6 @@ const ExpandedMyBetCard: React.FC<ExpandedMyBetCardProps> = ({ bet, onClose, add
                             showObjectChanges: true
                         }
                     });
-
-                    console.log(effects);
 
                     if (!effects) {
                         setDeleteError("Sorry, there was an error with deleting your bet");
@@ -82,8 +79,6 @@ const ExpandedMyBetCard: React.FC<ExpandedMyBetCardProps> = ({ bet, onClose, add
                     setDeleteLoading(false);
                 },
                 onError: async (error) => {
-                    console.log("Error occurred");
-                    console.log(error);
                     setDeleteError(error.message);
                     setDeleteLoading(false);
                 }
@@ -109,7 +104,6 @@ const ExpandedMyBetCard: React.FC<ExpandedMyBetCardProps> = ({ bet, onClose, add
             },
             {
                 onSuccess: async (result) => {
-                    console.log("Successfully sent bet to oracle");
                     const { effects } = await suiClient.waitForTransaction({
                         digest: result.digest,
                         options: {
@@ -119,8 +113,6 @@ const ExpandedMyBetCard: React.FC<ExpandedMyBetCardProps> = ({ bet, onClose, add
                             showObjectChanges: true
                         }
                     });
-
-                    console.log(effects);
 
                     if (!effects) {
                         setSentToOracleError("Sorry, there was an error with sending your bet to the oracle");
@@ -136,8 +128,6 @@ const ExpandedMyBetCard: React.FC<ExpandedMyBetCardProps> = ({ bet, onClose, add
                     setSentToOracleLoading(false);
                 },
                 onError: async (error) => {
-                    console.log("Error occurred");
-                    console.log(error);
                     setSentToOracleError(error.message);
                     setSentToOracleLoading(false);
                 }

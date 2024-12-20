@@ -65,7 +65,6 @@ const CreateBet = () => {
             },
             {
                 onSuccess: async (result) => {
-                    console.log("Success");
                     const { effects } = await suiClient.waitForTransaction({
                         digest: result.digest,
                         options: {
@@ -75,8 +74,6 @@ const CreateBet = () => {
                             showObjectChanges: true,
                         }
                     });
-                    // console.log(result);
-                    console.log(effects);
 
                     if (!effects) {
                         setError("Sorry, there was an error with your transaction");
@@ -93,13 +90,10 @@ const CreateBet = () => {
                         setResult("Error with creating a bet. Please try again.");
                     } else {
                         setResult(bet_id);
-                        console.log(bet_id_predicted);
                         setLoading(false);
                     }
                 },
                 onError: async (error) => {
-                    console.log("Error occurred");
-                    console.log(error);
                     setError(error);
                     setLoading(false);
                 }

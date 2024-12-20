@@ -117,7 +117,6 @@ const saveLatestCursor = async (tracker: EventTracker, cursor: EventId) => {
 
 export const setupListeners = async () => {
     for (const event of EVENTS_TO_TRACK) {
-        console.log(event);
         runEventJob(client, event, await getLatestCursor(event));
     }
 };

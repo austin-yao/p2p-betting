@@ -44,8 +44,6 @@ export const handleBetEvent = async (events: SuiEvent[], type: string) => {
     for (const event of events) {
         if (!event.type.startsWith(type)) throw new Error('Invalid event module origin');
         const data = event.parsedJson as BetEvent;
-        console.log(data);
-        console.log(data.bet_id);
 
         if (!Object.hasOwn(updates, data.bet_id)) {
             updates[data.bet_id] = {
@@ -89,13 +87,13 @@ export const handleBetEvent = async (events: SuiEvent[], type: string) => {
 
     try {
         const promises = Object.values(updates).map(async (update) => {
-            console.log(`Upserting betId: ${update.bet_id}`);
+            // console.log(`Upserting betId: ${update.bet_id}`);
             const result = await prisma.bet.upsert({
                 where: { bet_id: update.bet_id },
                 create: update,
                 update,
             });
-            console.log(`Upsert successful for betId: ${update.bet_id}`);
+            // console.log(`Upsert successful for betId: ${update.bet_id}`);
             return result;
         });
 

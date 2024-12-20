@@ -3,7 +3,7 @@ const environment: "testnet" | "mainnet" | "devnet" | "localnet" = "devnet";
 
 const variables = {
     "testnet": "0x2ebf7bd54a36ae8a2c69c60ed752dd7308d13b432e8a804a3a21bf6d560f8a4e",
-    "devnet": "0x8f6e84c53566e0b0a9299a72915b5181f842b6ce4f05c420aebd41cc68947f49"
+    "devnet": "0xb7823cf89d0769e408cd7d4f1118ff12fad036b654cdf66e420d990dcbb178c6"
 };
 
 export const CONFIG = {

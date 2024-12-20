@@ -14,8 +14,6 @@ app.get('/', (_req, res) => {
 
 app.get('/bet/:id', async (req, res) => {
     const bet_id = req.params.id;
-    console.log("Here");
-    console.log(bet_id);
     try {
         const bet = await prisma.bet.findUnique({
             where: { bet_id }

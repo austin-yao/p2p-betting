@@ -11,7 +11,7 @@ interface ProposalCardProps {
     onClose: () => void;
 }
 
-const PROP_STAKE = 10;
+const PROP_STAKE = 1000000;
 
 const ProposalCard: React.FC<ProposalCardProps> = ({ proposal, onResponseChange, onClose }) => {
     const bettingPackageId = useNetworkVariable("bettingPackageId");
@@ -58,7 +58,6 @@ const ProposalCard: React.FC<ProposalCardProps> = ({ proposal, onResponseChange,
                     transaction: tx
                 }, {
                 onSuccess: async (result) => {
-                    console.log("success");
                     const { effects } = await suiClient.waitForTransaction({
                         digest: result.digest,
                         options: {
@@ -68,7 +67,6 @@ const ProposalCard: React.FC<ProposalCardProps> = ({ proposal, onResponseChange,
                             showObjectChanges: true
                         }
                     });
-                    console.log(effects);
 
                     if (!effects) {
                         setSendError("Sorry, there was an error with accepting this bet");
@@ -84,8 +82,6 @@ const ProposalCard: React.FC<ProposalCardProps> = ({ proposal, onResponseChange,
                     setSendLoading(false);
                 },
                 onError: async (error) => {
-                    console.log("Error occurred");
-                    console.log(error);
                     setSendError(error.message);
                     setSendLoading(false);
                 }
