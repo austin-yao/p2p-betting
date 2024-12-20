@@ -8,7 +8,6 @@ import * as CONFIG from '../config.json';
 
 const ExploreBets = () => {
     const account = useCurrentAccount();
-
     const [bets, setBets] = useState<Bet[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
