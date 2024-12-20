@@ -1,6 +1,6 @@
 export interface Bet {
     id: Number,
-    betId: string,
+    bet_id: string,
     creator: string | undefined,
     acceptor: string | undefined,
     question: string | undefined,
@@ -11,5 +11,6 @@ export interface Bet {
     game_end_time: string,
     status: Number,
     create_time: string,
-    sent_to_oracle: boolean
+    sent_to_oracle: boolean,
+    winner: string
 }

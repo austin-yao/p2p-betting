@@ -676,7 +676,7 @@ module game::oracle_tests {
         {
             let game_data = scenario.take_shared<GameData>();
             let random = scenario.take_shared<Random>();
-            betting::requestValidate(&game_data, &random, scenario.ctx());
+            betting::request_validate(&game_data, &random, scenario.ctx());
 
             test_scenario::return_shared(game_data);
             test_scenario::return_shared(random);
@@ -819,10 +819,6 @@ module game::oracle_tests {
             test_scenario::return_to_address(prop1, prop1_coin);
             test_scenario::return_to_address(prop3, prop3_coin);
             test_scenario::return_to_address(p2, winnings);
-
-            // let prop2_coin = scenario.take_from_address<Coin<SUI>>(prop2);
-            // assert!(prop2_coin.value() == 15, 2);
-            // test_scenario::return_to_address(prop2, prop2_coin);
         };
 
         scenario.end();
@@ -955,7 +951,7 @@ module game::oracle_tests {
         let bet_id = {
             let game_data = scenario.take_shared<GameData>();
             let random = scenario.take_shared<Random>();
-            let (_prop_id, bet_id): (ID, ID) = betting::requestValidate(&game_data, &random, scenario.ctx());
+            let (_prop_id, bet_id): (ID, ID) = betting::request_validate(&game_data, &random, scenario.ctx());
             test_scenario::return_shared(game_data);
             test_scenario::return_shared(random);
 
@@ -970,7 +966,7 @@ module game::oracle_tests {
             let mut bet = scenario.take_shared_by_id<Bet>(bet_id);
             let coin = coin::mint_for_testing<SUI>(10, scenario.ctx());
 
-            betting::receiveValidate(&mut game_data, &mut bet, proposal, response, coin, scenario.ctx());
+            betting::receive_validate(&mut game_data, &mut bet, proposal, response, coin, scenario.ctx());
 
             test_scenario::return_shared(game_data);
             test_scenario::return_shared(bet);

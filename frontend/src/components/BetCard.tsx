@@ -37,7 +37,7 @@ const ExpandedBetCard: React.FC<ExpandedBetCardProps> = ({ bet, onClose }) => {
             tx.moveCall({
                 target: `${bettingPackageId}::betting::agree_to_bet`,
                 arguments: [
-                    tx.object(bet.betId),
+                    tx.object(bet.bet_id),
                     betAmountCoin,
                     tx.object.clock(),
                 ]
@@ -71,7 +71,7 @@ const ExpandedBetCard: React.FC<ExpandedBetCardProps> = ({ bet, onClose }) => {
                             setAcceptLoading(false);
                             return;
                         }
-                        setAccepted(true);
+                        setAccepted(false);
                         setAcceptLoading(false);
                     },
                     onError: async (error) => {
@@ -138,7 +138,7 @@ const ExpandedBetCard: React.FC<ExpandedBetCardProps> = ({ bet, onClose }) => {
                 {acceptError && (
                     <p className="text-red-500 font-semibold">Error: {acceptError}</p>
                 )}
-                {!accept && (
+                {(bet.agreed_by_both) && (
                     <p className="text-slate-700 dark:text-slate-300 font-medium">
                         Bet already agreed
                     </p>
@@ -147,17 +147,17 @@ const ExpandedBetCard: React.FC<ExpandedBetCardProps> = ({ bet, onClose }) => {
 
             {/* Buttons */}
             <div className="mt-4 space-y-4">
-                {accept && !acceptLoading && !acceptError && (
+                {!acceptLoading && !acceptError && (
                     <button
                         onClick={acceptBet}
-                        disabled={bet.status !== 1}
+                        disabled={bet.status !== 1 || !accept}
                         className={`w-full py-2 px-4 text-white font-bold rounded-lg 
                 ${bet.status !== 1
                                 ? "bg-gray-400 cursor-not-allowed"
                                 : "bg-green-600 hover:bg-green-700"
                             }`}
                     >
-                        Accept
+                        {accept ? "Accept" : "Accepted"}
                     </button>
                 )}
                 <button

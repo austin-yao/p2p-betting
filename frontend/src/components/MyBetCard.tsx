@@ -45,7 +45,7 @@ const ExpandedMyBetCard: React.FC<ExpandedMyBetCardProps> = ({ bet, onClose, add
         tx.moveCall({
             target: `${bettingPackageId}::betting::delete_bet`,
             arguments: [
-                tx.object(bet.betId),
+                tx.object(bet.bet_id),
             ]
         });
 
@@ -98,7 +98,7 @@ const ExpandedMyBetCard: React.FC<ExpandedMyBetCardProps> = ({ bet, onClose, add
             target: `${bettingPackageId}::betting::send_bet_to_oracle`,
             arguments: [
                 tx.object(bettingGameId),
-                tx.object(bet.betId),
+                tx.object(bet.bet_id),
                 tx.object.clock(),
             ]
         });
@@ -215,6 +215,16 @@ const ExpandedMyBetCard: React.FC<ExpandedMyBetCardProps> = ({ bet, onClose, add
                                         {new Date(Number(bet.game_end_time)).toLocaleString()}
                                     </td>
                                 </tr>
+                                {bet.status == 3 ? (
+                                    <tr>
+                                        <td className="border border-slate-300 dark:border-slate-700 px-4 py-2 text-slate-700 dark:text-slate-300">
+                                            Result
+                                        </td>
+                                        <td className="border border-slate-300 dark:border-slate-700 px-4 py-2 text-slate-700 dark:text-slate-300">
+                                            {bet.winner == address ? "Won" : "Lost"}
+                                        </td>
+                                    </tr>
+                                ) : <></>}
                             </tbody>
                         </table>
                     </div>

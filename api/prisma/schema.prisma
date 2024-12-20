@@ -15,7 +15,7 @@ datasource db {
 
 model Bet {
   id Int @id @default(autoincrement())
-  betId String @unique
+  bet_id String @unique
   creator String?
   acceptor String?
   question String?
@@ -27,6 +27,7 @@ model Bet {
   status Int @default(4)
   create_time String?
   sent_to_oracle Boolean @default(false)
+  winner String?
 }
 
 model Cursor {

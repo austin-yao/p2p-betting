@@ -13,12 +13,12 @@ app.get('/', (_req, res) => {
 });
 
 app.get('/bet/:id', async (req, res) => {
-    const betId = req.params.id;
+    const bet_id = req.params.id;
     console.log("Here");
-    console.log(betId);
+    console.log(bet_id);
     try {
         const bet = await prisma.bet.findUnique({
-            where: { betId }
+            where: { bet_id }
         });
 
         if (bet) {

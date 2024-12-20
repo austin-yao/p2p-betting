@@ -1,8 +1,8 @@
 export interface Proposal {
     id: string,
     proposer: string,
-    oracleId: string,
+    oracle_id: string,
     question: string,
     response: boolean,
-    queryId: string
+    query_id: string
 }

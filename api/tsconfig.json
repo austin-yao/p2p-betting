@@ -18,7 +18,8 @@
     "skipLibCheck": true /* Skip type checking of declaration files. */
   },
   "include": [
-    "./**/*.ts"
+    "./**/*.ts",
+    "node_modules/@prisma/client"
   ], /* Include all TypeScript files in the project. */
   "exclude": [
     "node_modules",

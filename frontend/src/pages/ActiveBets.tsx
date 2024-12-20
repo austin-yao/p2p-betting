@@ -68,10 +68,10 @@ const ActiveBets = () => {
             <div className="space-y-4">
                 {bets.map((bet) => (
                     <div
-                        key={bet.betId}
+                        key={bet.bet_id}
                         className="p-4 border border-slate-200 dark:border-slate-700 rounded-lg shadow-sm bg-white dark:bg-slate-700"
                     >
-                        {expandedBet && expandedBet.betId === bet.betId ? (
+                        {expandedBet && expandedBet.bet_id === bet.bet_id ? (
                             <ExpandedMyBetCard
                                 bet={bet}
                                 onClose={() => setExpandedBet(null)
@@ -83,7 +83,7 @@ const ActiveBets = () => {
                                 className="text-lg text-slate-700 dark:text-slate-300 cursor-pointer hover:underline"
                                 onClick={() => setExpandedBet(bet)}
                             >
-                                <span className="font-medium">Bet:</span> {bet.question} {bet.acceptor == account?.address && <p>(You accepted)</p>}
+                                <span className="font-medium">Bet:</span> {bet.question} {bet.acceptor == account?.address && <span>(You accepted)</span>}
                             </p>
                         )}
                     </div>

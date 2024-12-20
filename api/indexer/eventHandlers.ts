@@ -49,13 +49,13 @@ export const handleBetEvent = async (events: SuiEvent[], type: string) => {
 
         if (!Object.hasOwn(updates, data.bet_id)) {
             updates[data.bet_id] = {
-                betId: data.bet_id,
+                bet_id: data.bet_id,
             };
         }
 
         if (event.type.endsWith("::BetCreated")) {
             const data = event.parsedJson as BetCreated;
-            updates[data.bet_id].betId = data.bet_id;
+            updates[data.bet_id].bet_id = data.bet_id;
             updates[data.bet_id].creator = data.creator;
             updates[data.bet_id].question = data.question;
             updates[data.bet_id].for_amount = Number(data.for_amount);
@@ -76,6 +76,7 @@ export const handleBetEvent = async (events: SuiEvent[], type: string) => {
         } else if (event.type.endsWith("::BetPaidOut")) {
             const data = event.parsedJson as BetPaidOut;
             updates[data.bet_id].status = 3;
+            updates[data.bet_id].winner = data.winner;
         } else if (event.type.endsWith("::BetSentToOracle")) {
             const data = event.parsedJson as BetSentToOracle;
             updates[data.bet_id].sent_to_oracle = true;
@@ -88,13 +89,13 @@ export const handleBetEvent = async (events: SuiEvent[], type: string) => {
 
     try {
         const promises = Object.values(updates).map(async (update) => {
-            console.log(`Upserting betId: ${update.betId}`);
+            console.log(`Upserting betId: ${update.bet_id}`);
             const result = await prisma.bet.upsert({
-                where: { betId: update.betId },
+                where: { bet_id: update.bet_id },
                 create: update,
                 update,
             });
-            console.log(`Upsert successful for betId: ${update.betId}`);
+            console.log(`Upsert successful for betId: ${update.bet_id}`);
             return result;
         });
 

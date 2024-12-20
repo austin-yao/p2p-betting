@@ -51,6 +51,12 @@ const Oracle = () => {
         }
     )
 
+    const removeDuplicates = () => {
+        setUserProposals(userProposals.filter((item, index, self) =>
+            index === self.findIndex((t) => t.id === item.id)
+        ));
+    };
+
     useEffect(() => {
         if (data) {
             setProposal(data as Proposal);
@@ -66,24 +72,23 @@ const Oracle = () => {
         console.log(68);
         if (account) {
             if (userProposalData) {
-                setUserProposals([]);
                 console.log(72);
+                const newProposals: Proposal[] = [];
                 userProposalData.data.forEach((obj) => {
                     if (obj.data?.type?.endsWith("::Proposal") && obj.data?.content) {
                         // @ts-ignore
                         const content = obj.data?.content?.fields as Record<string, any>;
                         console.log(content);
-                        if ("id" in content && "oracleId" in content && "proposer" in content && "query_id" in content && "question" in content && "response" in content) {
+                        if ("id" in content && "oracle_id" in content && "proposer" in content && "query_id" in content && "question" in content && "response" in content) {
                             const proposal: Proposal = {
                                 id: content["id"]["id"] || content["id"],
                                 proposer: content["proposer"],
-                                oracleId: content["oracleId"],
-                                queryId: content["query_id"],
+                                oracle_id: content["oracle_id"],
+                                query_id: content["query_id"],
                                 question: content["question"],
                                 response: content["response"]
                             };
-                            console.log(83);
-                            setUserProposals([...userProposals, proposal]);
+                            newProposals.push(proposal);
                         } else {
 
                         }
@@ -91,6 +96,7 @@ const Oracle = () => {
 
                     }
                 });
+                setUserProposals(newProposals);
             }
             if (userProposalDataError) {
                 setUserProposalsError(userProposalDataError.message);
@@ -107,7 +113,7 @@ const Oracle = () => {
         tx.setGasBudget(10000000);
 
         tx.moveCall({
-            target: `${bettingPackageId}::betting::requestValidate`,
+            target: `${bettingPackageId}::betting::request_validate`,
             arguments: [
                 tx.object(bettingGameId),
                 tx.object.random()
