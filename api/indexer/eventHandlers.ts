@@ -44,6 +44,7 @@ export const handleBetEvent = async (events: SuiEvent[], type: string) => {
     for (const event of events) {
         if (!event.type.startsWith(type)) throw new Error('Invalid event module origin');
         const data = event.parsedJson as BetEvent;
+        console.log(data);
 
         if (!Object.hasOwn(updates, data.bet_id)) {
             updates[data.bet_id] = {

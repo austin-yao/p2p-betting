@@ -1,6 +1,6 @@
 import { getFullnodeUrl } from "@mysten/sui/client";
 import { createNetworkConfig } from "@mysten/dapp-kit";
-import { DEVNET_BETTING_PACKAGE_ID, DEVNET_BETTING_GAME_ID, TESTNET_BETTING_GAME_ID, TESTNET_BETTING_PACKAGE_ID } from "./constants";
+import { DEVNET_BETTING_PACKAGE_ID, DEVNET_BETTING_GAME_ID, TESTNET_BETTING_GAME_ID, TESTNET_BETTING_PACKAGE_ID, MAINNET_BETTING_GAME_ID, MAINNET_BETTING_PACKAGE_ID } from "./constants";
 
 const { networkConfig, useNetworkVariable, useNetworkVariables } =
   createNetworkConfig({
@@ -18,9 +18,13 @@ const { networkConfig, useNetworkVariable, useNetworkVariables } =
         bettingGameId: TESTNET_BETTING_GAME_ID,
       }
     },
-    // mainnet: {
-    //   url: getFullnodeUrl("mainnet"),
-    // },
+    mainnet: {
+      url: getFullnodeUrl("mainnet"),
+      variables: {
+        bettingPackageId: MAINNET_BETTING_PACKAGE_ID,
+        bettingGameId: MAINNET_BETTING_GAME_ID
+      }
+    },
   });
 
 export { useNetworkVariable, useNetworkVariables, networkConfig };
