@@ -47,7 +47,7 @@ const CreateBet = () => {
 
         const betAmountCoin = tx.splitCoins(tx.gas, [tx.pure.u64(mistAmountWager)]);
 
-        const bet_id_predicted = tx.moveCall({
+        tx.moveCall({
             target: `${bettingPackageId}::betting::create_bet`,
             arguments: [
                 tx.pure.string(question),

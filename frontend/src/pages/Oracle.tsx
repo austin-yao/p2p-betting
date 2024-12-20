@@ -51,12 +51,6 @@ const Oracle = () => {
         }
     )
 
-    const removeDuplicates = () => {
-        setUserProposals(userProposals.filter((item, index, self) =>
-            index === self.findIndex((t) => t.id === item.id)
-        ));
-    };
-
     useEffect(() => {
         if (data) {
             setProposal(data as Proposal);
