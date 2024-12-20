@@ -19,9 +19,9 @@ const ExploreBets = () => {
         const fetchAllBets = async () => {
             let url = "";
             if (account) {
-                url = `http://${CONFIG.server_host}:${CONFIG.server_port}/explorebets/${account.address}`;
+                url = `https://${CONFIG.server_host}:${CONFIG.server_port}/explorebets/${account.address}`;
             } else {
-                url = `http://${CONFIG.server_host}:${CONFIG.server_port}/explorebets`;
+                url = `https://${CONFIG.server_host}:${CONFIG.server_port}/explorebets`;
             }
             try {
                 const response = await axios.get(url);
