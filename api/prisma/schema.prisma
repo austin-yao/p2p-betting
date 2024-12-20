@@ -15,7 +15,7 @@ datasource db {
 
 model Bet {
   id Int @id @default(autoincrement())
-  betId String @unique
+  bet_id String @unique
   creator String?
   acceptor String?
   question String?
