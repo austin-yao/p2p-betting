@@ -69,16 +69,13 @@ const Oracle = () => {
     }, [data, error]);
 
     useEffect(() => {
-        console.log(68);
         if (account) {
             if (userProposalData) {
-                console.log(72);
                 const newProposals: Proposal[] = [];
                 userProposalData.data.forEach((obj) => {
                     if (obj.data?.type?.endsWith("::Proposal") && obj.data?.content) {
                         // @ts-ignore
                         const content = obj.data?.content?.fields as Record<string, any>;
-                        console.log(content);
                         if ("id" in content && "oracle_id" in content && "proposer" in content && "query_id" in content && "question" in content && "response" in content) {
                             const proposal: Proposal = {
                                 id: content["id"]["id"] || content["id"],
@@ -124,8 +121,6 @@ const Oracle = () => {
             { transaction: tx },
             {
                 onSuccess: async (result) => {
-                    console.log("Transaction successful");
-
                     const { effects } = await suiClient.waitForTransaction({
                         digest: result.digest,
                         options: {
@@ -155,7 +150,6 @@ const Oracle = () => {
                     }
                 },
                 onError: (error) => {
-                    console.log("Transaction failed", error);
                     setProposalError(error.message);
                     setProposalLoading(false);
                 },

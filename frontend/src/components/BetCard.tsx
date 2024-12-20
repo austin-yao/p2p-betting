@@ -49,7 +49,6 @@ const ExpandedBetCard: React.FC<ExpandedBetCardProps> = ({ bet, onClose }) => {
                 },
                 {
                     onSuccess: async (result) => {
-                        console.log("success");
                         const { effects } = await suiClient.waitForTransaction({
                             digest: result.digest,
                             options: {
@@ -59,7 +58,6 @@ const ExpandedBetCard: React.FC<ExpandedBetCardProps> = ({ bet, onClose }) => {
                                 showObjectChanges: true
                             }
                         });
-                        console.log(effects);
 
                         if (!effects) {
                             setAcceptError("Sorry, there was an error with accepting this bet");
@@ -75,8 +73,6 @@ const ExpandedBetCard: React.FC<ExpandedBetCardProps> = ({ bet, onClose }) => {
                         setAcceptLoading(false);
                     },
                     onError: async (error) => {
-                        console.log("Error occurred");
-                        console.log(error);
                         setAcceptError(error.message);
                         setAcceptLoading(false);
                     }
