@@ -18,7 +18,7 @@ const ActiveBets = () => {
         const fetchBets = async () => {
             if (account) {
                 try {
-                    const response = await axios.get(`https://${CONFIG.server_host}:${CONFIG.server_port}/mybets/${account.address}`);
+                    const response = await axios.get(`http://${CONFIG.server_host}:${CONFIG.server_port}/mybets/${account.address}`);
                     const data = response.data;
                     setBets(data);
                 } catch (error) {
