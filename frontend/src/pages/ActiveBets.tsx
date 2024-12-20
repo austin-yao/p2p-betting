@@ -45,17 +45,73 @@ const ActiveBets = () => {
 
         fetchBets();
     }, [account]);
-
+    ``
     if (!account) {
-        return <h3>Wallet not connected</h3>;
+        return (
+            <div className="flex flex-col items-center justify-center p-6 bg-red-100 dark:bg-red-800 rounded-lg shadow-lg max-w-md mx-auto">
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="w-12 h-12 text-red-600 dark:text-red-300 mb-4"
+                >
+                    <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M12 9v2m0 4h.01M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9 9 4.03 9 9z"
+                    />
+                </svg>
+                <h3 className="text-xl font-semibold text-red-800 dark:text-red-300">
+                    Wallet Not Connected
+                </h3>
+                <p className="text-sm text-red-600 dark:text-red-400 mt-2">
+                    Please connect your wallet to continue.
+                </p>
+            </div>
+        );
     }
 
     if (loading) {
-        return <h3>Loading</h3>
+        return (
+            <div className="flex flex-col items-center justify-center p-6 bg-gray-100 dark:bg-slate-800 rounded-lg shadow-lg max-w-sm mx-auto">
+                <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-blue-500 border-solid border-gray-200 dark:border-gray-700 mb-4"></div>
+                <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-200">
+                    Loading
+                </h3>
+                <p className="text-sm text-gray-600 dark:text-gray-400 mt-2">
+                    Please wait while we process your request.
+                </p>
+            </div>
+        );
     }
 
     if (error) {
-        return <h3>Error: {error}</h3>;
+        return (
+            <div className="flex flex-col items-center justify-center p-6 bg-red-100 dark:bg-red-800 rounded-lg shadow-lg max-w-md mx-auto">
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="w-12 h-12 text-red-600 dark:text-red-300 mb-4"
+                >
+                    <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M12 9v2m0 4h.01M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9 9 4.03 9 9z"
+                    />
+                </svg>
+                <h3 className="text-xl font-semibold text-red-800 dark:text-red-300">
+                    Error
+                </h3>
+                <p className="text-sm text-red-600 dark:text-red-400 mt-2">
+                    {error}
+                </p>
+            </div>
+        );
     }
 
     return (

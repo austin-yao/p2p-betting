@@ -16,9 +16,10 @@ import { Bet } from "../types/Bet";
 interface ExpandedBetCardProps {
     bet: Bet;
     onClose: () => void;
+    address: string | null;
 }
 
-const ExpandedBetCard: React.FC<ExpandedBetCardProps> = ({ bet, onClose }) => {
+const ExpandedBetCard: React.FC<ExpandedBetCardProps> = ({ bet, onClose, address }) => {
     const bettingPackageId = useNetworkVariable("bettingPackageId");
 
     const [acceptLoading, setAcceptLoading] = useState(false);
@@ -146,9 +147,9 @@ const ExpandedBetCard: React.FC<ExpandedBetCardProps> = ({ bet, onClose }) => {
                 {!acceptLoading && !acceptError && (
                     <button
                         onClick={acceptBet}
-                        disabled={bet.status !== 1 || !accept}
+                        disabled={bet.status !== 1 || !accept || !address}
                         className={`w-full py-2 px-4 text-white font-bold rounded-lg 
-                ${bet.status !== 1
+                ${bet.status !== 1 || !address
                                 ? "bg-gray-400 cursor-not-allowed"
                                 : "bg-green-600 hover:bg-green-700"
                             }`}

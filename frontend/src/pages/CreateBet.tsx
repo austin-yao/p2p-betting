@@ -22,10 +22,6 @@ const CreateBet = () => {
     const bettingPackageId = useNetworkVariable("bettingPackageId");
     // We don't even need to technically go on-chain, can keep data of all the bets we have and go through them to see which ones include this user.
 
-    if (!account) {
-        return <h1>Please connect your account.</h1>
-    }
-
     const createBet = (event: any) => {
         setLoading(true);
         setError(null);
@@ -100,6 +96,33 @@ const CreateBet = () => {
             },
         );
     };
+
+    if (!account) {
+        return (
+            <div className="flex flex-col items-center justify-center p-6 bg-red-100 dark:bg-red-800 rounded-lg shadow-lg max-w-md mx-auto">
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="w-12 h-12 text-red-600 dark:text-red-300 mb-4"
+                >
+                    <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M12 9v2m0 4h.01M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9 9 4.03 9 9z"
+                    />
+                </svg>
+                <h3 className="text-xl font-semibold text-red-800 dark:text-red-300">
+                    Wallet Not Connected
+                </h3>
+                <p className="text-sm text-red-600 dark:text-red-400 mt-2">
+                    Please connect your wallet to continue.
+                </p>
+            </div>
+        );
+    }
 
     return (
         <div>
