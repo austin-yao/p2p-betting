@@ -45,7 +45,7 @@ const ExpandedMyBetCard: React.FC<ExpandedMyBetCardProps> = ({ bet, onClose, add
         tx.moveCall({
             target: `${bettingPackageId}::betting::delete_bet`,
             arguments: [
-                tx.object(bet.betId),
+                tx.object(bet.bet_id),
             ]
         });
 
@@ -98,7 +98,7 @@ const ExpandedMyBetCard: React.FC<ExpandedMyBetCardProps> = ({ bet, onClose, add
             target: `${bettingPackageId}::betting::send_bet_to_oracle`,
             arguments: [
                 tx.object(bettingGameId),
-                tx.object(bet.betId),
+                tx.object(bet.bet_id),
                 tx.object.clock(),
             ]
         });

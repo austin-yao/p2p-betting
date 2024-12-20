@@ -73,12 +73,12 @@ const Oracle = () => {
                         // @ts-ignore
                         const content = obj.data?.content?.fields as Record<string, any>;
                         console.log(content);
-                        if ("id" in content && "oracleId" in content && "proposer" in content && "query_id" in content && "question" in content && "response" in content) {
+                        if ("id" in content && "oracle_id" in content && "proposer" in content && "query_id" in content && "question" in content && "response" in content) {
                             const proposal: Proposal = {
                                 id: content["id"]["id"] || content["id"],
                                 proposer: content["proposer"],
-                                oracleId: content["oracleId"],
-                                queryId: content["query_id"],
+                                oracle_id: content["oracle_id"],
+                                query_id: content["query_id"],
                                 question: content["question"],
                                 response: content["response"]
                             };

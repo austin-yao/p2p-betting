@@ -37,7 +37,7 @@ const ExpandedBetCard: React.FC<ExpandedBetCardProps> = ({ bet, onClose }) => {
             tx.moveCall({
                 target: `${bettingPackageId}::betting::agree_to_bet`,
                 arguments: [
-                    tx.object(bet.betId),
+                    tx.object(bet.bet_id),
                     betAmountCoin,
                     tx.object.clock(),
                 ]

@@ -68,10 +68,10 @@ const ActiveBets = () => {
             <div className="space-y-4">
                 {bets.map((bet) => (
                     <div
-                        key={bet.betId}
+                        key={bet.bet_id}
                         className="p-4 border border-slate-200 dark:border-slate-700 rounded-lg shadow-sm bg-white dark:bg-slate-700"
                     >
-                        {expandedBet && expandedBet.betId === bet.betId ? (
+                        {expandedBet && expandedBet.bet_id === bet.bet_id ? (
                             <ExpandedMyBetCard
                                 bet={bet}
                                 onClose={() => setExpandedBet(null)

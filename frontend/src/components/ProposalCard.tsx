@@ -44,7 +44,7 @@ const ProposalCard: React.FC<ProposalCardProps> = ({ proposal, onResponseChange,
                 target: `${bettingPackageId}::betting::receiveValidate`,
                 arguments: [
                     tx.object(bettingGameId),
-                    tx.object(proposal.oracleId),
+                    tx.object(proposal.oracle_id),
                     tx.object(proposal.id),
                     tx.pure.bool(proposal.response),
                     propCoin,

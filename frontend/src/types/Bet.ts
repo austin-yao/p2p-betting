@@ -1,6 +1,6 @@
 export interface Bet {
     id: Number,
-    betId: string,
+    bet_id: string,
     creator: string | undefined,
     acceptor: string | undefined,
     question: string | undefined,
