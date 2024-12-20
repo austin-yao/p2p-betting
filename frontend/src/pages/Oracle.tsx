@@ -107,7 +107,7 @@ const Oracle = () => {
         tx.setGasBudget(10000000);
 
         tx.moveCall({
-            target: `${bettingPackageId}::betting::requestValidate`,
+            target: `${bettingPackageId}::betting::request_validate`,
             arguments: [
                 tx.object(bettingGameId),
                 tx.object.random()

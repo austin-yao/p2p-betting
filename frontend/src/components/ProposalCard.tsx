@@ -36,12 +36,14 @@ const ProposalCard: React.FC<ProposalCardProps> = ({ proposal, onResponseChange,
 
     const submitProposal = () => {
         try {
+            setSendLoading(true);
+            setSendError(undefined);
             const tx = new Transaction();
             tx.setGasBudget(10000000);
             const propCoin = tx.splitCoins(tx.gas, [tx.pure.u64(PROP_STAKE as number)]);
 
             tx.moveCall({
-                target: `${bettingPackageId}::betting::receiveValidate`,
+                target: `${bettingPackageId}::betting::receive_validate`,
                 arguments: [
                     tx.object(bettingGameId),
                     tx.object(proposal.oracle_id),
@@ -125,9 +127,9 @@ const ProposalCard: React.FC<ProposalCardProps> = ({ proposal, onResponseChange,
             {/* Submit Button */}
             <button
                 onClick={submitProposal}
-                disabled={send}
+                disabled={send || sendLoading}
                 className={`w-full py-2 px-4 text-white font-bold rounded-lg transition 
-        ${send
+        ${send || sendLoading
                         ? "bg-gray-400 cursor-not-allowed"
                         : "bg-blue-500 hover:bg-blue-600"
                     }`}
