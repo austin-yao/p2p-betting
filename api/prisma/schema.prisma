@@ -9,29 +9,29 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = "file:./dev.db"
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 model Bet {
-  id Int @id @default(autoincrement())
-  bet_id String @unique
-  creator String?
-  acceptor String?
-  question String?
-  for_amount Int?
-  against_amount Int?
-  agreed_by_both Boolean @default(false)
+  id              Int     @id @default(autoincrement())
+  bet_id          String  @unique
+  creator         String?
+  acceptor        String?
+  question        String?
+  for_amount      Int?
+  against_amount  Int?
+  agreed_by_both  Boolean @default(false)
   game_start_time String?
-  game_end_time String?
-  status Int @default(4)
-  create_time String?
-  sent_to_oracle Boolean @default(false)
-  winner String?
+  game_end_time   String?
+  status          Int     @default(4)
+  create_time     String?
+  sent_to_oracle  Boolean @default(false)
+  winner          String?
 }
 
 model Cursor {
-  id String @id
+  id       String @id
   eventSeq String
   txDigest String
 }
