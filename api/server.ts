@@ -1,8 +1,6 @@
 import cors from 'cors';
 import express from 'express';
 import prisma from './db';
-import fs from 'fs';
-import https from 'https';
 
 const app = express();
 
@@ -84,13 +82,6 @@ app.get('/explorebets/:address?', async (req, res) => {
     }
 })
 
-// Load SSL Certificates
-const sslOptions = {
-    key: fs.readFileSync('server.key'), // Path to your private key
-    cert: fs.readFileSync('server.cert') // Path to your certificate
-};
-
-// Start HTTPS Server
-https.createServer(sslOptions, app).listen(3000, '0.0.0.0', () => {
-    console.log('Server is running on port 3000');
+app.listen(3000, '0.0.0.0', () => {
+    console.log('Server is running on http://localhost:3000');
 });
