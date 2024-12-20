@@ -11,7 +11,7 @@ interface ProposalCardProps {
     onClose: () => void;
 }
 
-const PROP_STAKE = 10;
+const PROP_STAKE = 1000000;
 
 const ProposalCard: React.FC<ProposalCardProps> = ({ proposal, onResponseChange, onClose }) => {
     const bettingPackageId = useNetworkVariable("bettingPackageId");
