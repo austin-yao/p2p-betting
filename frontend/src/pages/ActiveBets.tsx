@@ -83,7 +83,7 @@ const ActiveBets = () => {
                                 className="text-lg text-slate-700 dark:text-slate-300 cursor-pointer hover:underline"
                                 onClick={() => setExpandedBet(bet)}
                             >
-                                <span className="font-medium">Bet:</span> {bet.question} {bet.acceptor == account?.address && <p>(You accepted)</p>}
+                                <span className="font-medium">Bet:</span> {bet.question} {bet.acceptor == account?.address && <span>(You accepted)</span>}
                             </p>
                         )}
                     </div>

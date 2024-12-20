@@ -819,10 +819,6 @@ module game::oracle_tests {
             test_scenario::return_to_address(prop1, prop1_coin);
             test_scenario::return_to_address(prop3, prop3_coin);
             test_scenario::return_to_address(p2, winnings);
-
-            // let prop2_coin = scenario.take_from_address<Coin<SUI>>(prop2);
-            // assert!(prop2_coin.value() == 15, 2);
-            // test_scenario::return_to_address(prop2, prop2_coin);
         };
 
         scenario.end();

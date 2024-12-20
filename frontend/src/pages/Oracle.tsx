@@ -51,6 +51,12 @@ const Oracle = () => {
         }
     )
 
+    const removeDuplicates = () => {
+        setUserProposals(userProposals.filter((item, index, self) =>
+            index === self.findIndex((t) => t.id === item.id)
+        ));
+    };
+
     useEffect(() => {
         if (data) {
             setProposal(data as Proposal);
@@ -66,8 +72,8 @@ const Oracle = () => {
         console.log(68);
         if (account) {
             if (userProposalData) {
-                setUserProposals([]);
                 console.log(72);
+                const newProposals: Proposal[] = [];
                 userProposalData.data.forEach((obj) => {
                     if (obj.data?.type?.endsWith("::Proposal") && obj.data?.content) {
                         // @ts-ignore
@@ -82,8 +88,7 @@ const Oracle = () => {
                                 question: content["question"],
                                 response: content["response"]
                             };
-                            console.log(83);
-                            setUserProposals([...userProposals, proposal]);
+                            newProposals.push(proposal);
                         } else {
 
                         }
@@ -91,6 +96,7 @@ const Oracle = () => {
 
                     }
                 });
+                setUserProposals(newProposals);
             }
             if (userProposalDataError) {
                 setUserProposalsError(userProposalDataError.message);
